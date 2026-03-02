@@ -1,1 +1,9 @@
+fastapi
+uvicorn
+jinja2
+sqlalchemy
+passlib
+httpx
+python-multipart
 mailjet_rest
+
