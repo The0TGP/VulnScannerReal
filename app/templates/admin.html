@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Admin Panel</h2>
+
+<h3>Users</h3>
+<table border="1" cellpadding="6" style="background:white;">
+<tr>
+    <th>Email</th>
+    <th>Verified</th>
+    <th>Admin</th>
+    <th>Actions</th>
+</tr>
+
+{% for u in users %}
+<tr>
+    <td>{{ u.username }}</td>
+    <td>{{ "yes" if u.is_verified else "no" }}</td>
+    <td>{{ "yes" if u.is_admin else "no" }}</td>
+    <td>
+        <form method="post" action="/admin/delete-user" style="display:inline;">
+            <input type="hidden" name="username" value="{{ u.username }}">
+            <button>Delete</button>
+        </form>
+
+        {% if not u.is_admin %}
+        <form method="post" action="/admin/make-admin" style="display:inline;">
+            <input type="hidden" name="username" value="{{ u.username }}">
+            <button>Make Admin</button>
+        </form>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+
+<h3>Scan History</h3>
+<table border="1" cellpadding="6" style="background:white;">
+<tr>
+    <th>ID</th>
+    <th>Target</th>
+    <th>User</th>
+    <th>Timestamp</th>
+    <th>Action</th>
+</tr>
+
+{% for s in scans %}
+<tr>
+    <td>{{ s.id }}</td>
+    <td>{{ s.target }}</td>
+    <td>{{ s.user }}</td>
+    <td>{{ s.timestamp }}</td>
+    <td>
+        <form method="post" action="/admin/delete-scan">
+            <input type="hidden" name="id" value="{{ s.id }}">
+            <button>Delete</button>
+        </form>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

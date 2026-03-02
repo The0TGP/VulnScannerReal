@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Create Account</h2>
+
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="post" action="/register">
+<input name="username" placeholder="Email">
+<input type="password" name="password" placeholder="Password">
+<button>Create Account</button>
+</form>
+
+<p><a href="/login">Back to login</a></p>
+{% endblock %}

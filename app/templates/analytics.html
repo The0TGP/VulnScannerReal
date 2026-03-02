@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Analytics Dashboard</h2>
+<p>Overview of all vulnerability scans.</p>
+
+<h3>Total Scans: {{ total_scans }}</h3>
+
+<div>
+    <canvas id="portsChart" width="400" height="200"></canvas>
+</div>
+
+<div>
+    <canvas id="injChart" width="400" height="200"></canvas>
+</div>
+
+<div>
+    <canvas id="tlsChart" width="400" height="200"></canvas>
+</div>
+
+<script src="/static/chart.min.js"></script>
+
+<script>
+// --------------------------
+// Open Ports Chart
+// --------------------------
+const portLabels = {{ open_port_counts.keys() | list | safe }};
+const portValues = {{ open_port_counts.values() | list | safe }};
+
+new Chart(document.getElementById("portsChart"), {
+    type: "bar",
+    data: {
+        labels: portLabels,
+        datasets: [{
+            label: "Open Port Frequency",
+            data: portValues,
+            backgroundColor: "rgba(0, 120, 255, 0.7)"
+        }]
+    }
+});
+
+// --------------------------
+// Injection Chart (Pie)
+// --------------------------
+new Chart(document.getElementById("injChart"), {
+    type: "pie",
+    data: {
+        labels: ["XSS", "SQL Injection"],
+        datasets: [{
+            data: [{{ xss_count }}, {{ sqli_count }}],
+            backgroundColor: ["#ff6384", "#36a2eb"]
+        }]
+    }
+});
+
+// --------------------------
+// TLS Issues
+// --------------------------
+new Chart(document.getElementById("tlsChart"), {
+    type: "bar",
+    data: {
+        labels: ["TLS Issues", "OK Scans"],
+        datasets: [{
+            data: [{{ tls_issues }}, {{ total_scans - tls_issues }}],
+            backgroundColor: ["#ff0000", "#00cc66"]
+        }]
+    }
+});
+</script>
+
+{% endblock %}

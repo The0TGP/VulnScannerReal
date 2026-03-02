@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>API Documentation</h2>
+<p>A listing of all available API endpoints for the Vulnerability Scanner.</p>
+
+<style>
+.api-box {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-left: 5px solid #0078ff;
+    border-radius: 5px;
+}
+.dark-mode .api-box {
+    background: #222;
+    border-left-color: #3fa9ff;
+}
+.method {
+    font-weight: bold;
+    color: #0078ff;
+}
+.dark-mode .method {
+    color: #3fa9ff;
+}
+.url {
+    font-family: monospace;
+}
+</style>
+
+{% for ep in endpoints %}
+<div class="api-box">
+    <div class="method">{{ ep.method }}</div>
+    <div class="url">{{ ep.url }}</div>
+    <div>{{ ep.description }}</div>
+</div>
+{% endfor %}
+
+{% endblock %}

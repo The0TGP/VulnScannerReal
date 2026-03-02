@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #222;
+    margin: 0;
+}
+
+header {
+    background: #0078ff;
+    padding: 15px;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    color: white;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+nav button {
+    background: white;
+    color: #0078ff;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #eee;
+}
+
+.container {
+    padding: 20px;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px 0;
+    width: 100%;
+    max-width: 300px;
+}
+
+button {
+    background: #0078ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #005fcc;
+}
+
+.progress-box {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    background: #ddd;
+}

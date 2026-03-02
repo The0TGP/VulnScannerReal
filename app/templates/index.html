@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Run a Vulnerability Scan</h2>
+
+<form method="post" action="/scan">
+    <input name="target" placeholder="example.com">
+    <button type="submit">Start Scan</button>
+</form>
+
+{% if scan_id %}
+<hr>
+<h3>Scan Progress</h3>
+<div id="progress" class="progress-box"></div>
+
+<script>
+    const ws = new WebSocket("ws://" + location.host + "/ws/{{ scan_id }}");
+    ws.onmessage = (e) => {
+        document.getElementById("progress").innerHTML += e.data + "<br>";
+    };
+</script>
+{% endif %}
+
+{% endblock %}

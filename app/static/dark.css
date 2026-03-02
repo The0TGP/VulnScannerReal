@@ -1,0 +1,37 @@
+.dark-mode {
+    background: #111;
+    color: #f0f0f0;
+}
+
+.dark-mode header {
+    background: #222;
+    color: #fff;
+}
+
+.dark-mode nav a {
+    color: #80c0ff;
+}
+
+.dark-mode nav button {
+    background: #333;
+    color: white;
+}
+
+.dark-mode .container {
+    background: #111;
+}
+
+.dark-mode input {
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+}
+
+.dark-mode button {
+    background: #444;
+    color: white;
+}
+
+.dark-mode footer {
+    background: #222;
+}
