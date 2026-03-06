@@ -76,7 +76,9 @@ def register(request: Request, username: str = Form(...), password: str = Form(.
     db.commit()
 
     # Send verification email
-    link = f"http://localhost:8000/verify/{token}"
+    import os
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
+link = f"{BASE_URL}/verify/{token}"
     send_email(username, "Verify Your Email", f"Click to verify: {link}")
 
     return request.app.templates.TemplateResponse(
@@ -106,3 +108,4 @@ def verify_email(request: Request, token: str):
         "login.html",
         {"request": request, "message": "Email verified. Please log in."}
     )
+
