@@ -15,6 +15,7 @@ app = FastAPI()
 # Static files + template engine
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
+app.templates = templates
 
 # Routers
 app.include_router(auth.router)
@@ -56,3 +57,4 @@ async def scan(request: Request):
         "index.html",
         {"request": request, "scan_id": scan_id}
     )
+
