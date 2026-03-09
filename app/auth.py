@@ -64,7 +64,38 @@ def register(request: Request, username: str = Form(...), password: str = Form(.
     # Generate verification link
     verification_link = f"{BASE_URL}/verify/{token}"
     # Send email
-    send_email(username, "Verify Your Email", f"Click to verify: {verification_link}")
+    html_email = f"""
+<div style="font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5;">
+  <div style="max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px;">
+    <h2 style="color: #0078ff;">Verify Your VulnScanner Account</h2>
+    <p>Hi there,</p>
+    <p>Thanks for creating a VulnScanner account! Please click the button below to verify your email.</p>
+    <div style="text-align:center; margin: 30px 0;">
+      <a href="{verification_link}" style="
+        background: #0078ff;
+        color: white;
+        padding: 12px 22px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 6px;
+        display: inline-block;">
+        Verify Email
+      </a>
+    </div>
+    <p>If the button doesn't work, paste this URL into your browser:</p>
+    <p style="background:#f0f0f0; padding:10px; border-radius:5px; font-size:14px;">
+      {verification_link}
+    </p>
+    <p>Stay secure,<br><strong>VulnScanner Team</strong></p>
+  </div>
+</div>
+"""
+send_email(
+    username,
+    "Verify Your VulnScanner Account",
+    f"Click to verify: {verification_link}",
+    html_email
+)
     return request.app.templates.TemplateResponse(
         "verify_email.html",
         {"request": request, "message": "Verification email sent. Check your inbox."}
@@ -88,4 +119,5 @@ def verify_email(request: Request, token: str):
         "login.html",
         {"request": request, "message": "Email verified. You can now log in."}
     )
+
 
