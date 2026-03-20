@@ -1,37 +1,18 @@
-.dark-mode {
-    background: #111;
-    color: #f0f0f0;
+dark-mode {
+    --bg: #07101d;
+    --bg-soft: #0d1728;
+    --panel: rgba(12, 19, 33, 0.88);
+    --panel-solid: #0f1726;
+    --line: rgba(255,255,255,0.08);
+    --text: #ecf2fb;
+    --muted: #99a8bd;
+    --primary: #5b8cff;
+    --primary-2: #8a63ff;
 }
-
-.dark-mode header {
-    background: #222;
-    color: #fff;
-}
-
-.dark-mode nav a {
-    color: #80c0ff;
-}
-
-.dark-mode nav button {
-    background: #333;
-    color: white;
-}
-
-.dark-mode .container {
-    background: #111;
-}
-
-.dark-mode input {
-    background: #222;
-    color: white;
-    border: 1px solid #444;
-}
-
-.dark-mode button {
-    background: #444;
-    color: white;
-}
-
-.dark-mode footer {
-    background: #222;
+.dark-mode body,
+body.dark-mode {
+    background:
+        radial-gradient(circle at top left, rgba(91, 140, 255, 0.15), transparent 30%),
+        radial-gradient(circle at top right, rgba(138, 99, 255, 0.14), transparent 25%),
+        linear-gradient(180deg, #07101d 0%, #0b1220 100%);
 }
