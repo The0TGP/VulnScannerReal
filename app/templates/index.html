@@ -1,24 +1,94 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<h2>Run a Vulnerability Scan</h2>
-
-<form method="post" action="/scan">
-    <input name="target" placeholder="example.com">
-    <button type="submit">Start Scan</button>
-</form>
-
+<section class="hero">
+    <div class="hero-copy">
+        <span class="eyebrow">Security Scanning Platform</span>
+        <h1>Scan websites for common security weaknesses in a clean, simple workflow.</h1>
+        <p class="hero-text">
+            Run targeted checks for open ports, missing security headers, TLS issues,
+            and basic non-destructive XSS/SQLi patterns from one professional dashboard.
+        </p>
+        <div class="hero-actions">
+            <a class="primary-btn" href="#scan-panel">Start a Scan</a>
+            <a class="secondary-btn" href="/api-docs">View API Docs</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Core scan types</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">Live</div>
+                <div class="stat-label">Real-time status</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">Web</div>
+                <div class="stat-label">Browser-based workflow</div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="panel-card" id="scan-panel">
+            <div class="panel-header">
+                <h3>Run a Vulnerability Scan</h3>
+                <span class="panel-badge">FastAPI Powered</span>
+            </div>
+            <form method="post" action="/scan" class="scan-form">
+                <label for="target" class="form-label">Target domain or hostname</label>
+                <input id="target" name="target" placeholder="example.com" class="scan-input">
+                <button type="submit" class="scan-btn">Start Scan</button>
+            </form>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>Open Ports</h4>
+                    <p>Quick checks against common exposed services.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Security Headers</h4>
+                    <p>Detects missing browser hardening headers.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>TLS Review</h4>
+                    <p>Flags weak or misconfigured HTTPS behavior.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Safe Probes</h4>
+                    <p>Non-destructive XSS and SQLi pattern testing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="info-strip">
+    <div class="info-card">
+        <h3>Built for clarity</h3>
+        <p>Prioritizes readable results and a straightforward workflow over clutter.</p>
+    </div>
+    <div class="info-card">
+        <h3>Designed for iteration</h3>
+        <p>Ready to grow into scheduling, exports, user roles, and richer scan intelligence.</p>
+    </div>
+    <div class="info-card">
+        <h3>Professional UI</h3>
+        <p>A finished look now, while backend capabilities continue to expand over time.</p>
+    </div>
+</section>
 {% if scan_id %}
-<hr>
-<h3>Scan Progress</h3>
-<div id="progress" class="progress-box"></div>
-
+<section class="results-shell">
+    <div class="results-card">
+        <div class="panel-header">
+            <h3>Live Scan Progress</h3>
+            <span class="panel-badge">Session {{ scan_id }}</span>
+        </div>
+        <div id="progress" class="progress-console"></div>
+    </div>
+</section>
 <script>
-    const ws = new WebSocket("ws://" + location.host + "/ws/{{ scan_id }}");
+    const wsProtocol = location.protocol === "https:" ? "wss://" : "ws://";
+    const ws = new WebSocket(wsProtocol + location.host + "/ws/{{ scan_id }}");
     ws.onmessage = (e) => {
-        document.getElementById("progress").innerHTML += e.data + "<br>";
+        document.getElementById("progress").innerHTML += `<div class="log-line">${e.data}</div>`;
     };
 </script>
 {% endif %}
-
 {% endblock %}
